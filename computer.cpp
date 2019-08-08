@@ -245,6 +245,7 @@ Computer::Move Computer::playMinimax()
         int posValue = -9000;
     };
     MovePlusValue movePlusValue[200];
+
     for (int i{0}; i < moves[0].index; ++i)
     {
         Chessboard newChessboard(*m_chessBoard);
@@ -265,11 +266,30 @@ Computer::Move Computer::playMinimax()
     }
 
     MovePlusValue bestMove;
+
+    Move moveRandom;
+    bool evaluationChangend = false;
+    int lastEvalutaion = movePlusValue[0].posValue;
+
     for (int i{0}; i < moves[0].index; ++i)
     {
         if (movePlusValue[i].posValue > bestMove.posValue)
             bestMove = movePlusValue[i];
+
+        if (lastEvalutaion != movePlusValue[i].posValue)
+        {
+            evaluationChangend = true;
+        }
+        lastEvalutaion = movePlusValue[i].posValue;
     }
+
+    if (!evaluationChangend)
+    {
+        Move move1;
+        move1 = playRandom(moves, m_chessBoard);
+        return move1;
+    }
+
     Move move;
     move.from = bestMove.from;
     move.to = bestMove.to;
