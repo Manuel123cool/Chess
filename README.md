@@ -5,4 +5,4 @@ Resources: <br>
 https://www.learncpp.com/ <br>
 https://www.youtube.com/watch?v=STjW3eH0Cik&t=1497s <br>
 <br>
-The AI is slow and seems to be not well programmed. Its a learning project.
+
