@@ -20,7 +20,7 @@ protected:
     std::string m_state;
 public:
     void drawState(std::string state);
-    bool checkIfCheckmate(int to, Chessboard &chessboard);
+    bool checkIfCheckmate(int to, Chessboard &chessboard, bool dontDraw = false);
     void checkIfMakingCheck(int to);
     bool checkIfGettingCheck(int from, int to, Chessboard &chessboard, bool dontDraw = false);
     ChessGame(sf::RenderWindow &window);
