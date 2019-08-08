@@ -263,7 +263,8 @@ bool ChessGame::checkIfCheckmate(int to, Chessboard &chessboardArg, bool dontDra
         }
 
         if (count == index && !moveCanStopCheck)
-        {   if (!dontDraw)
+        {
+            if (!dontDraw)
             {
                 if (chessboardArg.checkWhiteIsPlaying())
                 {
