@@ -250,7 +250,7 @@ Computer::Move Computer::playMinimax()
     {
         Chessboard newChessboard(*m_chessBoard);
         newChessboard.playFromTo(moves[i].from, moves[i].to);
-        if (m_chessGame->checkIfCheckmate(moves[i].to, newChessboard))
+        if (m_chessGame->checkIfCheckmate(moves[i].to, newChessboard, true))
         {
             Move move;
             move.from = moves[i].from;
@@ -315,7 +315,7 @@ int Computer::minimax(int deph, int dephNumber, Chessboard &chessboard, bool com
         {
             Chessboard newChessboard(chessboard);
             newChessboard.playFromTo(moves[i].from, moves[i].to);
-            if (m_chessGame->checkIfCheckmate(moves[i].to, newChessboard))
+            if (m_chessGame->checkIfCheckmate(moves[i].to, newChessboard, true))
                 return 900;
             int minimaxVar = minimax(deph, dephNumber + 1, newChessboard, !computerIsPlaying, alpha, beta);
             if (minimaxVar > max)
@@ -333,7 +333,7 @@ int Computer::minimax(int deph, int dephNumber, Chessboard &chessboard, bool com
         {
             Chessboard newChessboard(chessboard);
             newChessboard.playFromTo(moves[i].from, moves[i].to);
-            if (m_chessGame->checkIfCheckmate(moves[i].to, newChessboard))
+            if (m_chessGame->checkIfCheckmate(moves[i].to, newChessboard, true))
                 return -900;
             int minimaxVar = minimax(deph, dephNumber + 1, newChessboard, !computerIsPlaying, alpha, beta);
             if (minimaxVar < min)
