@@ -145,7 +145,7 @@ bool ChessGame::checkIfGettingCheck(int from, int to, Chessboard &chessboardArg,
     return false;
 }
 
-bool ChessGame::checkIfCheckmate(int to, Chessboard &chessboardArg)
+bool ChessGame::checkIfCheckmate(int to, Chessboard &chessboardArg, bool dontDraw)
 {
     PlayByRules newPlayByRules(m_window);
     newPlayByRules.setPlayByRulesPointer(&chessboardArg);
@@ -263,14 +263,25 @@ bool ChessGame::checkIfCheckmate(int to, Chessboard &chessboardArg)
         }
 
         if (count == index && !moveCanStopCheck)
-        {
-            if (chessboardArg.checkWhiteIsPlaying())
+        {   if (!dontDraw)
             {
-                m_state = "Black is checkmate";
-            }
-            else
-            {
-                m_state = "White is checkmate";
+                if (chessboardArg.checkWhiteIsPlaying())
+                {
+                    m_state = "Black is checkmate";
+                }
+                else
+                {
+                    m_state = "White is checkmate";
+                }
+
+                if (chessboardArg.checkWhiteIsPlaying())
+                {
+                    m_state = "Black is checkmate";
+                }
+                else
+                {
+                    m_state = "White is checkmate";
+                }
             }
             return true;
         }
