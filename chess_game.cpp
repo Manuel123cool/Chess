@@ -80,6 +80,7 @@ bool ChessGame::aFigureCanMoveToByCastling(int from, int to, Chessboard &chessbo
             return true;
         }
     }
+    return false;
 }
 
 bool ChessGame::checkIfGettingCheck(int from, int to, Chessboard &chessboardArg, bool dontDraw)
@@ -122,25 +123,25 @@ bool ChessGame::checkIfGettingCheck(int from, int to, Chessboard &chessboardArg,
     //if play down
     if (from == 60 && getFigureAssets(60).figure == KING && to == 62)
     {
-        return aFigureCanMoveToByCastling(from, 61, chessboardArg, dontDraw);
-        return aFigureCanMoveToByCastling(from, 60, chessboardArg, dontDraw);
+        return aFigureCanMoveToByCastling(from, 61, chessboardArg, dontDraw) ||   
+            aFigureCanMoveToByCastling(from, 60, chessboardArg, dontDraw);
     }
 
     if (from == 60 && getFigureAssets(60).figure == KING && to == 58)
     {
-        return aFigureCanMoveToByCastling(from, 59, chessboardArg, dontDraw);
-        return aFigureCanMoveToByCastling(from, 60, chessboardArg, dontDraw);
+        return aFigureCanMoveToByCastling(from, 59, chessboardArg, dontDraw) || 
+            aFigureCanMoveToByCastling(from, 60, chessboardArg, dontDraw);
     }
     //if play up
     if (from == 4 && getFigureAssets(4).figure == KING && to == 6)
     {
-        return aFigureCanMoveToByCastling(from, 5, chessboardArg, dontDraw);
-        return aFigureCanMoveToByCastling(from, 4, chessboardArg, dontDraw);
+        return aFigureCanMoveToByCastling(from, 5, chessboardArg, dontDraw) || 
+            aFigureCanMoveToByCastling(from, 4, chessboardArg, dontDraw);
     }
     if (from == 4 && getFigureAssets(4).figure == KING && to == 2)
     {
-        return aFigureCanMoveToByCastling(from, 3, chessboardArg, dontDraw);
-        return aFigureCanMoveToByCastling(from, 4, chessboardArg, dontDraw);
+        return aFigureCanMoveToByCastling(from, 3, chessboardArg, dontDraw) ||
+            aFigureCanMoveToByCastling(from, 4, chessboardArg, dontDraw);
     }
     return false;
 }
