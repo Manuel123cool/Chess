@@ -8,4 +8,4 @@ https://www.youtube.com/watch?v=STjW3eH0Cik&t=1497s <br>
 
 <h4>Executabeles: </h1>
 Linux: <br>
-https://www.dropbox.com/sh/pt71f4nzdn7usfr/AAARr-pPUfsoQE_CEG2CeRLBa?dl=0
+https://www.dropbox.com/sh/ce5nnx0vlxksvrr/AAAd5nZ7avMUAzi3dYfhO06Ia?dl=0
