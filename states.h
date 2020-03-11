@@ -11,7 +11,7 @@ private:
     States *m_baseStates;
 public:
     virtual void update() {};
-    virtual States* currentState(Manu *manu, TwoPlayer *twoPlayer, OnePlayer *onePlayer) {};
+    virtual States* currentState(Manu *manu, TwoPlayer *twoPlayer, OnePlayer *onePlayer) {return m_baseStates;};
     void changeState(Manu *manu, TwoPlayer *twoPlayer, OnePlayer *onePlayer);
     States* getState();
     virtual ~States() {};
