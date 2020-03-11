@@ -13,6 +13,8 @@ void OnePlayer::update()
         setUpChessFigures();
         m_once = false;
         whiteIsHuman = checkWhiteIsPlaying();
+        if (!whiteIsHuman)
+            changeCurrentPlayed();
     }
     updateChessboard();
 
@@ -23,6 +25,9 @@ void OnePlayer::update()
     if (drawAndCheckRestartGame())
     {
         whiteIsHuman = !whiteIsHuman;
+        if (!whiteIsHuman)
+            changeCurrentPlayed();
+
         gameOver = false;
     }
 
