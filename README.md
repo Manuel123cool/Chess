@@ -1,7 +1,7 @@
 # Chess
 A simple Chess AI 
 
-<p>Hint: there is an Makefile</p>
+<p>Hint: there is a makefile</p>
 
 Resources: <br>
 https://www.learncpp.com/ <br>
