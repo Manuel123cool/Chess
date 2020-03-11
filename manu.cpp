@@ -88,6 +88,7 @@ States* Manu::currentState(Manu *manu, TwoPlayer *twoPlayer, OnePlayer *onePlaye
             return manu;
             break;
     }
+    return manu;
 }
 
 Manu::Manu(sf::RenderWindow &window) : m_window(window)
