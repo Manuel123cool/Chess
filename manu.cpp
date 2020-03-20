@@ -1,4 +1,4 @@
-/*  Konklusion_cms: open source blog manager
+/*  Chess: a simple chess ai
     Copyright (C) 2020  Manuel Maria Kümpel
     
     This program is free software: you can redistribute it and/or modify
