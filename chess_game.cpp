@@ -1,24 +1,8 @@
-/*  Chess: a simple chess AI
-    Copyright (C) 2020  Manuel Maria Kümpel
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
-
 #include "chess_game.h"
 #include "play_by_rules.h"
 #include <iostream>
 #include <string>
+#include <chrono> 
 
 void ChessGame::updateChessGame()
 {
@@ -37,7 +21,11 @@ void ChessGame::updateChessGame()
 
     ClicketPos clicketPos;
     clicketPos = getUserInupt();
-    if (clicketPos.on && validMove(clicketPos.pos1, clicketPos.pos2) && !checkIfGettingCheck(clicketPos.pos1, clicketPos.pos2, *this))
+    
+    bool checkCheck{ checkIfGettingCheck(clicketPos.pos1, clicketPos.pos2, *this)};
+    bool b_validMove{ validMove(clicketPos.pos1, clicketPos.pos2) }; 
+
+    if (clicketPos.on && b_validMove && !checkCheck)
     {
         m_state = "";
 
@@ -80,7 +68,7 @@ void ChessGame::checkIfMakingCheck(int to)
 
 bool ChessGame::aFigureCanMoveToByCastling(int from, int to, Chessboard &chessboard, bool dontDraw)
 {
-    Chessboard chessboard1(chessboard);
+    Chessboard chessboard1(chessboard, m_window);
     chessboard1.playFromTo(from, to);
     chessboard1.changeCurrentPlayed();
 
@@ -102,9 +90,10 @@ bool ChessGame::aFigureCanMoveToByCastling(int from, int to, Chessboard &chessbo
 
 bool ChessGame::checkIfGettingCheck(int from, int to, Chessboard &chessboardArg, bool dontDraw)
 {
-    Chessboard chessboard(chessboardArg);
+    Chessboard chessboard(chessboardArg, m_window);
     chessboard.playFromTo(from, to);
     chessboard.changeCurrentPlayed();
+
 
     int counterKingPos = -1;
     for (int i{0}; i < 64; ++i)
@@ -137,22 +126,23 @@ bool ChessGame::checkIfGettingCheck(int from, int to, Chessboard &chessboardArg,
             return true;
         }
     }
+
     //if play down
     if (from == 60 && getFigureAssets(60).figure == KING && to == 62)
     {
-        return aFigureCanMoveToByCastling(from, 61, chessboardArg, dontDraw) ||   
+        return aFigureCanMoveToByCastling(from, 61, chessboardArg, dontDraw) ||
             aFigureCanMoveToByCastling(from, 60, chessboardArg, dontDraw);
     }
 
     if (from == 60 && getFigureAssets(60).figure == KING && to == 58)
     {
-        return aFigureCanMoveToByCastling(from, 59, chessboardArg, dontDraw) || 
+        return aFigureCanMoveToByCastling(from, 59, chessboardArg, dontDraw) ||
             aFigureCanMoveToByCastling(from, 60, chessboardArg, dontDraw);
     }
     //if play up
     if (from == 4 && getFigureAssets(4).figure == KING && to == 6)
     {
-        return aFigureCanMoveToByCastling(from, 5, chessboardArg, dontDraw) || 
+        return aFigureCanMoveToByCastling(from, 5, chessboardArg, dontDraw) ||
             aFigureCanMoveToByCastling(from, 4, chessboardArg, dontDraw);
     }
     if (from == 4 && getFigureAssets(4).figure == KING && to == 2)
@@ -160,7 +150,7 @@ bool ChessGame::checkIfGettingCheck(int from, int to, Chessboard &chessboardArg,
         return aFigureCanMoveToByCastling(from, 3, chessboardArg, dontDraw) ||
             aFigureCanMoveToByCastling(from, 4, chessboardArg, dontDraw);
     }
-    return false;
+   return false;
 }
 
 bool ChessGame::checkIfCheckmate(int to, Chessboard &chessboardArg, bool dontDraw)
@@ -185,7 +175,7 @@ bool ChessGame::checkIfCheckmate(int to, Chessboard &chessboardArg, bool dontDra
 
     if (newPlayByRules.validMove(to, counterKingPos))
     {
-        Chessboard chessboard(chessboardArg);
+        Chessboard chessboard(chessboardArg, m_window);
         chessboard.changeCurrentPlayed();
 
         PlayByRules playByRules(m_window);
@@ -209,7 +199,7 @@ bool ChessGame::checkIfCheckmate(int to, Chessboard &chessboardArg, bool dontDra
         int count = 0;
         for (int i{0}; i < index; ++i)
         {
-            Chessboard chessboard1(chessboardArg);
+            Chessboard chessboard1(chessboardArg, m_window);
             chessboard1.playFromTo(counterKingPos, kingCanGoPos[i]);
 
             PlayByRules playByRules1(m_window);
@@ -247,7 +237,7 @@ bool ChessGame::checkIfCheckmate(int to, Chessboard &chessboardArg, bool dontDra
 
                 if (chessboard.getFigureAssets(i).isOn && currentPlayed && playByRules.validMove(i, j))
                 {
-                    Chessboard chessboard2(chessboardArg);
+                    Chessboard chessboard2(chessboardArg, m_window);
                     chessboard2.playFromTo(i, j);
 
                     if (KING == chessboard.getFigureAssets(i).figure)
