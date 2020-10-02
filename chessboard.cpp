@@ -1,25 +1,8 @@
-/*  Chess: a simple chess AI
-    Copyright (C) 2020  Manuel Maria Kümpel
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
-
 #include "chessboard.h"
 #include <iostream>
 #include <random>
 #include <ctime>
-
+#include <chrono>
 namespace MyRandom
 {
 	std::mt19937 mersenne(static_cast<std::mt19937::result_type>(std::time(nullptr)));
@@ -432,4 +415,12 @@ void Chessboard::setChessBoardToDefault()
     m_kingOrTowerWasPlayed.leftWhiteTowerMoved = false;
     m_kingOrTowerWasPlayed.rightBlackTowerMoved = false;
     m_kingOrTowerWasPlayed.rightWhiteTowerMoved = false;
+}
+
+Chessboard::Chessboard(const Chessboard &chessboard, sf::RenderWindow &window) : m_window(window)
+{
+    m_whiteIsPlaying = chessboard.m_whiteIsPlaying;
+    m_kingOrTowerWasPlayed = chessboard.m_kingOrTowerWasPlayed; 
+    for (int i{ 0 }; i < 64; ++i)
+        m_figureAssets[i] = chessboard.m_figureAssetsi[i];
 }
