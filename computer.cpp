@@ -1,20 +1,3 @@
-/*  Chess: a simple chess AI
-    Copyright (C) 2020  Manuel Maria Kümpel
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
-
 #include "computer.h"
 #include <iostream>
 #include <random> // for std::mt19937
@@ -190,7 +173,7 @@ Computer::Move Computer::playWithEvaluation(Chessboard *chessboard)
             bool currentPlayed = chessboard->checkWhiteIsPlaying() == chessboard->getFigureAssets(i).white;
             if (chessboard->getFigureAssets(i).isOn && currentPlayed && playByRules.validMove(i, j) && !m_chessGame->checkIfGettingCheck(i, j, *chessboard, true))
             {
-                Chessboard newChessboard(*chessboard);
+                Chessboard newChessboard(*chessboard, m_window);
                 newChessboard.playFromTo(i, j);
 
                 if (m_chessGame->checkIfCheckmate(j, newChessboard))
@@ -253,7 +236,7 @@ Computer::Move Computer::playMinimax()
     int beta = 9000;
     m_countMinimaxPos = 0;
     Move moves[200];
-    int deph = 3;
+    int deph = 4;
     getAllPosMoves(moves, m_chessBoard);
     struct MovePlusValue
     {
@@ -265,7 +248,7 @@ Computer::Move Computer::playMinimax()
 
     for (int i{0}; i < moves[0].index; ++i)
     {
-        Chessboard newChessboard(*m_chessBoard);
+        Chessboard newChessboard(*m_chessBoard, m_window);
         newChessboard.playFromTo(moves[i].from, moves[i].to);
         if (m_chessGame->checkIfCheckmate(moves[i].to, newChessboard, true))
         {
@@ -330,7 +313,7 @@ int Computer::minimax(int deph, int dephNumber, Chessboard &chessboard, bool com
         int max = -9000;
         for (int i{0}; i< moves[0].index; ++i)
         {
-            Chessboard newChessboard(chessboard);
+            Chessboard newChessboard(chessboard, m_window);
             newChessboard.playFromTo(moves[i].from, moves[i].to);
             if (m_chessGame->checkIfCheckmate(moves[i].to, newChessboard, true))
                 return 900;
@@ -348,7 +331,7 @@ int Computer::minimax(int deph, int dephNumber, Chessboard &chessboard, bool com
         int min = 9000;
         for (int i{0}; i < moves[0].index; ++i)
         {
-            Chessboard newChessboard(chessboard);
+            Chessboard newChessboard(chessboard, m_window);
             newChessboard.playFromTo(moves[i].from, moves[i].to);
             if (m_chessGame->checkIfCheckmate(moves[i].to, newChessboard, true))
                 return -900;
