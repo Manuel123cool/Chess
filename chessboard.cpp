@@ -421,6 +421,7 @@ Chessboard::Chessboard(const Chessboard &chessboard, sf::RenderWindow &window) :
 {
     m_whiteIsPlaying = chessboard.m_whiteIsPlaying;
     m_kingOrTowerWasPlayed = chessboard.m_kingOrTowerWasPlayed; 
+    m_currentPlayerIsUp = chessboard.m_currentPlayerIsUp;
     for (int i{ 0 }; i < 64; ++i)
-        m_figureAssets[i] = chessboard.m_figureAssetsi[i];
+        m_figureAssets[i] = chessboard.m_figureAssets[i];
 }
